@@ -1,0 +1,41 @@
+name: Panna restructure (one-time)
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  restructure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Move sources and update paths
+        run: |
+          set -euo pipefail
+          D=src/main/java/com/harpreet/panna
+          mkdir -p "$D"
+          for f in Panna*.java; do git mv "$f" "$D/"; done
+          python3 - <<'PY'
+          p = 'build.gradle'
+          s = open(p).read()
+          s = s.replace("            java.srcDirs = ['.']\n", "")
+          s = s.replace("            java.filter.include 'Panna*.java'   // app classes only; the *Check.java test programs are excluded\n", "")
+          open(p, 'w').write(s)
+          p = 'panna-check.sh'
+          s = open(p).read()
+          for n in ['PannaText', 'PannaSearch', 'PannaResearch', 'PannaStudy', 'PannaCatalog']:
+              s = s.replace(n + '.java', 'src/main/java/com/harpreet/panna/' + n + '.java')
+          open(p, 'w').write(s)
+          p = 'SyntaxCheck.java'
+          s = open(p).read()
+          s = s.replace('Files.list(Path.of("."))', 'Files.list(Path.of("src/main/java/com/harpreet/panna"))')
+          open(p, 'w').write(s)
+          PY
+          grep -q "srcDirs = \['.'\]" build.gradle && { echo "build.gradle not updated"; exit 1; }
+          bash panna-check.sh
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Move app sources to src/main/java and update paths"
+          git push
