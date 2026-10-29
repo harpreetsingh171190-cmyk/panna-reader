@@ -1,0 +1,30 @@
+Panna Reader
+
+Rebuilt from the user-supplied CloudReader-master.zip.
+Original project: CloudReader, https://github.com/youlookwhat/CloudReader
+Original attribution: Copyright (C) 2016 Bin Jing
+Original license: Apache License, Version 2.0 (retained in LICENSE).
+
+This distribution substantially changes the original project: the feed/MVVM
+application is replaced by a native offline text library. All application Java
+classes, visual resources, app package and module names are new. The Gradle
+wrapper scripts/JAR and Apache license are retained. The original upstream
+source and assets are not bundled in this rebuilt source archive.
+
+The Gradle wrapper is a third-party build component. Its existing copyright
+notices remain in the retained scripts/JAR. Renaming the product does not
+transfer ownership of upstream work.
+
+Version 1.1 adds device TTS integration, named bookmarks, incoming text sharing,
+single-reading TXT exports, sepia theme, keep-awake preference and library totals.
+
+Version 1.2 adds reversible Trash, pin/archive states, tag browsing, notes exports,
+non-overwriting backup merge and schema 2 backups with schema 1 read compatibility.
+
+Version 1.3 adds saved passage highlights with annotations, lightweight Markdown
+heading navigation, filtered multi-selection and batch organization, enriched
+study-note exports, and schema 3 backups with schema 1/2 read compatibility.
+
+Version 1.4 adds manually entered source metadata, multiple collection memberships,
+bounded advanced literal search, catalog CSV exports and schema 4 backups with
+schema 1/2/3 read compatibility.
