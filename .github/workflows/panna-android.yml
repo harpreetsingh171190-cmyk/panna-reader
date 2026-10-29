@@ -26,7 +26,7 @@ jobs:
         with:
           gradle-version: '8.5'
       - name: Pure-Java logic checks
-        run: bash checks/panna-check.sh
+        run: bash panna-check.sh
       - name: Lint and debug APK
         run: gradle lintDebug assembleDebug --stacktrace
       - uses: actions/upload-artifact@v4
