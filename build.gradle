@@ -1,0 +1,30 @@
+// Single-module layout: app sources live in src/main/java (standard location, so Gradle never scans the
+// project root, which also holds build/). Manifest sits next to this file; resources live under res/.
+plugins { id 'com.android.application' version '8.2.2' }
+android {
+    namespace 'com.harpreet.panna'
+    compileSdk 34
+    defaultConfig {
+        applicationId 'com.harpreet.panna'
+        minSdk 23
+        targetSdk 34
+        versionCode 5
+        versionName '1.4.0'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            res.srcDirs = ['res']
+        }
+    }
+    buildTypes { release { minifyEnabled false } }
+    lint {
+        abortOnError true
+        warningsAsErrors false
+        checkReleaseBuilds false
+    }
+}
